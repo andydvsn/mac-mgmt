@@ -27,7 +27,7 @@ if ("@ARGV" =~ 'force') {
 # Figure out where we are.
 my $hostname = `hostname`;
 
-# Discover system version.
+# Discover system version (this used to be more important than it is now).
 #  We're expecting to be running Mountain Lion
 my $osxver = "8";
 #  But you never know.
@@ -42,7 +42,7 @@ if ($fullosxver =~ "10.8") {
 # Set some basics, unless we've already done so recently.
 if (! -e $lockfile) {
 
-	my $pmbasics = `pmset -a ttyskeepawake 1 hibernatemode 0 halfdim 1 womp 1 sleep 0 powerbutton 0 disksleep 30 autorestart 1 displaysleep 9 repeat wakeorpoweron MTWRF 08:45:00`;
+	my $pmbasics = `pmset -a ttyskeepawake 1 hibernatemode 0 halfdim 1 womp 1 sleep 0 powerbutton 0 disksleep 30 autorestart 1 panicrestart 10 displaysleep 9 repeat wakeorpoweron MTWRF 08:45:00`;
 	$clires = `echo "\`date  +'%Y-%m-%d %H:%M:%S'\`: UPDATE: General power management settings have been applied." >> $logfile`;
 	
 	if ($hostname !~ 'cluster') {
