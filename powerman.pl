@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-#powerman.pl v1.03 (11/09/12)
+#powerman.pl v1.04 (25/09/13)
 # Installed in /usr/local/bin
 
 # Makes sure basic power management settings are maintained, and
