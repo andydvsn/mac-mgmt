@@ -1,28 +1,41 @@
 #!/bin/bash
 
-## enrolme.sh v1.01 (2nd September 2013) by Andy Davison
+## enrolme.sh v1.01 (26th March 2014) by Andy Davison
 
 if [ "$USER" != "root" ]; then
-	echo "Please run $0 as root."
+	echo "Requires superuser privileges."
 	exit 0
 fi
 
-echo
-echo "enrolme.sh v1.00 (2nd September 2013)"
-echo "==========================================="
-echo
-echo "Before you run this, make sure you've set the name of the system"
-echo "in System Preferences, under the Sharing component."
-echo
-echo "You should also have bound this system to Active Directory."
-echo
-echo "HINT: ou=ahc,ou=hum,ou=Workstations,dc=ds,dc=man,dc=ac,dc=uk"
-echo
-echo -n "Press <ENTER> if everything's ready..."
-read WISH
-echo
+if [ $# -lt 1 ]; then
+	echo "Usage: $0 <server> [auto]"
+	exit 0
+fi
 
-PROFILESERVER="xserve.studios"
+PROFILESERVER="$1"
+
+if [ "$2" == "" ]; then
+	echo
+	echo "enrolme.sh v1.01 (26th March 2014)"
+	echo "=================================="
+	echo
+	echo "Before you run this, make sure you've set the name of the system"
+	echo "in System Preferences, under the Sharing component."
+	echo
+	echo "You should also have bound this system to Active Directory."
+	echo
+	echo "HINT: ou=ahc,ou=hum,ou=Workstations,dc=ds,dc=man,dc=ac,dc=uk"
+	echo
+	echo "Profiles will be downloaded from: http://$PROFILESERVER/system/"
+	echo
+	echo -n "Press <ENTER> to install if everything's ready..."
+	read WISH
+	echo
+fi
+
+
+echo "Removing existing profiles..."
+/usr/bin/profiles -D -f all
 
 echo "Fetching profiles from $PROFILESERVER..."
 echo
