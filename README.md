@@ -4,10 +4,16 @@ OS X Management
 A collection of little scripts used to manage Macs in our studios.
 
 
-installbootefi.sh
------------------
+bootefi
+-------
 
 An idiotproof script for replacing boot.efi files. Should you ever need to do such a thing.
+
+
+distributemac.sh
+----------------
+
+A tidying script that does a few Good Things to a system before an image is taken. Basically reminds you to clear the Kerberos KDC files and removes some odds and sods. Could probably do more, too.
 
 
 enrolme.sh
