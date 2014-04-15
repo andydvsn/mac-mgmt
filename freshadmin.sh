@@ -18,9 +18,9 @@ PATH="http://governor.studios/users/admin-10.$OSVER.tgz"
 echo "Fetching new admin user area..."
 cd /tmp && /usr/bin/curl -sO "$PATH"
 echo "Removing old admin user area..."
-/bin/rm -rf /tmp/badger/admin
+/bin/rm -rf /Users/admin
 echo "Copying new admin user area..."
-/usr/bin/tar zxf /tmp/admin-10.$OSVER.tgz -C /tmp/badger
+/usr/bin/tar zxf /tmp/admin-10.$OSVER.tgz -C /Users
 /bin/rm /tmp/admin-10.$OSVER.tgz
 echo "Done."
 exit 0
