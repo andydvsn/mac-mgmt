@@ -22,6 +22,12 @@ enrolme.sh
 Really simple bash script to fetch and install Trust and Enrolment profiles from a server, in the correct order.
 
 
+freshadmin.sh
+-------------
+
+Fetches fresh admin user area from a server and puts it in the right place. Woo.
+
+
 powerman.pl
 -----------
 
