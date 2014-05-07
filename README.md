@@ -1,13 +1,19 @@
 OS X Management
 ===============
 
-A collection of little scripts used to manage Macs in our studios.
+A collection of little scripts used to manage Macs.
 
 
 bootefi
 -------
 
 An idiotproof script for replacing boot.efi files. Should you ever need to do such a thing.
+
+
+ddupd
+-----
+
+An uncomplicated dynamic DNS updater. Seriously, ddclient?
 
 
 distributemac.sh
