@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# installbootefi.sh v1.00 by Andy Davison
+# installbootefi.sh v1.01 (16th May 2014) by Andy Davison
 #  Installs whatever boot.efi file you point it to into the right places.
 
 if [ "$USER" != "root" ]; then
@@ -43,14 +43,13 @@ if [ "$SURE" == "y" ] || [ "$SURE" == "Y" ]; then
 	cp "$BOOTEFI" $TARGET/System/Library/CoreServices/boot.efi
 	cp "$BOOTEFI" $TARGET/usr/standalone/i386/boot.efi
 
-	echo "Setting basic permissions..."
+	echo "Setting permissions..."
 	chmod 644 $TARGET/System/Library/CoreServices/boot.efi
 	chmod 644 $TARGET/usr/standalone/i386/boot.efi
 	chown root:wheel $TARGET/System/Library/CoreServices/boot.efi
 	chown root:wheel $TARGET/usr/standalone/i386/boot.efi
-
-	echo "Repairing system permissions..."
-	diskutil repairpermissions $TARGET
+	xattr -c $TARGET/System/Library/CoreServices/boot.efi
+	xattr -c $TARGET/usr/standalone/i386/boot.efi
 
 	echo "Complete."
 	exit 0
