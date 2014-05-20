@@ -23,4 +23,3 @@ Use
 ---
 
 Check the log file in /Library/Logs/ddupd.log now and then to make sure it's running.
-
