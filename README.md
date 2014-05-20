@@ -69,3 +69,11 @@ To install:
 
 Simple, but effective, and probably not massively secure. ;)
 
+
+whileout
+--------
+
+This little setup runs a process when there is no *console* user logged in. When somebody logs in to the OS X console, the process is killed and script watches for when the user logs out again.
+
+When the system is clear, the process is started again.
+
