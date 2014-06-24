@@ -6,11 +6,9 @@
 	<string>com.studios.storefor</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/storefor.sh</string>
+		<string>/Users/admin/Dropbox/Library/Scripts/storefor/storefor.sh</string>
 	</array>
 	<key>StartInterval</key>
-	<integer>10</integer>
-	<key>StandardOutPath</key>
-	<string>/Library/Logs/storefor.log</string>
+	<integer>20</integer>
 </dict>
 </plist>

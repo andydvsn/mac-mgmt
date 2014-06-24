@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.studios.storefor</string>
+	<string>com.titchy.toiso</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/storefor.sh</string>
+		<string>/usr/local/bin/toiso</string>
+		<string>/Users/titchy/Movies/Rips</string>
+		<string>/Volumes/Drobo/Media/Incoming</string>
 	</array>
 	<key>StartInterval</key>
-	<integer>10</integer>
-	<key>StandardOutPath</key>
-	<string>/Library/Logs/storefor.log</string>
+	<integer>1200</integer>
 </dict>
 </plist>
