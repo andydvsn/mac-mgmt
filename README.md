@@ -1,7 +1,7 @@
 OS X Management
 ===============
 
-A collection of little scripts used to manage or do 'handy things' on Macs.
+A collection of little scripts used to do handy things on Macs.
 
 
 bootefi
@@ -25,7 +25,7 @@ A tidying script that does a few Good Things to a system before an image is take
 eraseoldusers.pl
 ----------------
 
-Another tidying script; this one looks through the user directory for any user account data exceeding the 'inactive' threshold. Those accounts that have not been accessed within the timeout period are deleted. The home root, Desktop and Documents folders all need to be sufficiently stale for the deletion to take place.
+Another tidying script; this one looks through the user directory for any user account data exceeding the 'inactive' threshold. Those accounts that have not been accessed within the timeout period are deleted. The home root, Desktop and Documents folders all need to be sufficiently stale for the deletion to take place. Written in Perl for variety.
 
 
 enrolme.sh
