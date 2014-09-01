@@ -7,6 +7,11 @@ if [ "$USER" != "root" ]; then
 	exit 0
 fi
 
+if [ ! -d /Users/Guest/Library ]; then
+	echo "No Library could be found for the Guest user. They must be logged in for it to exist!"
+	exit 1
+fi
+
 echo
 echo "replacelibrarywithguest.sh v1.00 (1st September 2014)"
 echo "====================================================="
@@ -17,11 +22,6 @@ echo
 echo -n "Press <ENTER> to continue..."
 read WISH
 echo
-
-if [ ! -d /Users/Guest/Library ]; then
-	echo "No Library could be found for the Guest user. They must be logged in for it to exist!"
-	exit 1
-fi
 
 echo -n "Removing current default Library..."
 rm -rf /System/Library/User\ Template/English.lproj/Library
