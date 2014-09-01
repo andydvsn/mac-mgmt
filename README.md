@@ -48,6 +48,12 @@ Power management script that ensures our Energy settings are maintained, but als
 The fairly insistent resetting of the Energy preferences is mainly a hangover from Mac OS X Tiger, when Energy settings seemed to be altered randomly. However, having this script running occasionally always keeps every system in perfect check, so I'm not changing my game plan.
 
 
+replacelibrarywithguest.sh
+--------------------------
+
+Replaces the Default User Template Library folder with the one currently in use for the Guest user. Makes tweaking things just that bit quicker and less prone to keyboard slips.
+
+
 Resources.app
 -------------
 
