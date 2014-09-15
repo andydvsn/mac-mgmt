@@ -1,23 +1,24 @@
 #!/bin/bash
 
-## enrolme.sh v1.01 (26th March 2014) by Andy Davison
+## enrolme.sh v1.03 (2nd September 2014) by Andy Davison
+## Auto-installation of Profiles.
 
 if [ "$USER" != "root" ]; then
-	echo "Requires superuser privileges."
-	exit 0
+	echo "$0 requires superuser privileges."
+	exit 1
 fi
 
 if [ $# -lt 1 ]; then
 	echo "Usage: $0 <server> [auto]"
-	exit 0
+	exit 1
 fi
 
 PROFILESERVER="$1"
 
 if [ "$2" == "" ]; then
 	echo
-	echo "enrolme.sh v1.01 (26th March 2014)"
-	echo "=================================="
+	echo "enrolme.sh v1.03 (2nd September 2014)"
+	echo "====================================="
 	echo
 	echo "Before you run this, make sure you've set the name of the system"
 	echo "in System Preferences, under the Sharing component."
@@ -28,11 +29,10 @@ if [ "$2" == "" ]; then
 	echo
 	echo "Profiles will be downloaded from: http://$PROFILESERVER/system/"
 	echo
-	echo -n "Press <ENTER> to install if everything's ready..."
+	echo -n "Press <ENTER> to install..."
 	read WISH
 	echo
 fi
-
 
 echo "Removing existing profiles..."
 /usr/bin/profiles -D -f all
@@ -52,3 +52,5 @@ echo "Installing enrolment..."
 
 echo
 echo "You should now add this system to an appropriate group in Profile Manager."
+
+exit 0

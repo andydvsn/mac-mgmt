@@ -1,10 +1,8 @@
 #!/usr/bin/perl -w
 
-#powerman.pl v1.05 (27/09/13)
-# Installed in /usr/local/bin
-
-# Makes sure basic power management settings are maintained, and
-# power down machines when we can get away with it.
+## powerman.pl v1.07 (2nd September 2014) by Andy Davison
+##  Ensures basic power management settings are maintained and
+##  powers down machines when we think we can get away with it.
 
 use strict;
 
@@ -28,36 +26,23 @@ if ("@ARGV" =~ 'force') {
 # Figure out where we are.
 my $hostname = `hostname`;
 
-# Discover system version (this used to be more important than it is now).
-#  We're expecting to be running Mountain Lion
-my $osxver = "8";
-#  But you never know.
-my $fullosxver = `sw_vers`;
-if ($fullosxver =~ "10.8") {
-	$osxver = "8"
-} elsif ($fullosxver =~ "10.7") {
-	$osxver = "7"
-}
-
-
 # Set some basics, unless we've already done so recently.
 if (! -e $lockfile) {
 
-	my $pmbasics = `pmset -a ttyskeepawake 1 hibernatemode 0 halfdim 1 womp 1 sleep 0 powerbutton 0 disksleep 30 autorestart 1 panicrestart 10 displaysleep 9 repeat wakeorpoweron MTWRF 08:45:00`;
+	my $pmbasics = `pmset -a ttyskeepawake 1 hibernatemode 0 halfdim 1 womp 1 sleep 0 repeat wakeorpoweron MTWRF 08:45:00`;
 	$clires = `echo "\`date  +'%Y-%m-%d %H:%M:%S'\`: UPDATE : General power management settings have been applied." >> $logfile`;
 	
 	if ($hostname !~ 'cluster') {
-		my $pmleo = `pmset -a displaysleep 20 disksleep 0`;
+		my $pm = `pmset -a displaysleep 20 disksleep 0 autorestart 1`;
 		$clires = `echo "\`date  +'%Y-%m-%d %H:%M:%S'\`: UPDATE : Studio-specific power management settings have been updated." >> $logfile`;
 	}
 	
 	if ($hostname =~ 'cluster') {
-		my $pmleo = `pmset -a displaysleep 40 disksleep 1`;
+		my $pm = `pmset -a displaysleep 30 disksleep 20 autorestart 0`;
 		$clires = `echo "\`date  +'%Y-%m-%d %H:%M:%S'\`: UPDATE : Cluster-specific power management machines have been updated." >> $logfile`;
 	}
 
 }
-
 
 # Now we get active with some potential shutdowns.
 my $currenthour = `/bin/date +%H`; chomp $currenthour;
@@ -153,7 +138,4 @@ if (! -e $lockfile) {
 
 }
 
-
-
-
-
+exit 0

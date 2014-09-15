@@ -1,12 +1,13 @@
 #!/usr/bin/perl -w
 
-# eraseoldusers.pl v1.02 (24th July 2014) by Andy Davison.
-#  Erases user directories that exceed the inactive timeout.
+## eraseoldusers.pl v1.03 (2nd September 2014) by Andy Davison.
+##  Erases user directories that exceed the inactive timeout.
 
 use strict;
 
+## Number of days before we can consider something stale.
 my $killafter = 353;
-my $debug = 1;
+my $verbose = 1;
 
 print "\nBeginning removal of user accounts that have been inactive for $killafter days or more.\n";
 
@@ -26,28 +27,28 @@ foreach my $oneuser (@userlist) {
 		
 	chomp($oneuser);
 	
-	print "Account $oneuser: " if ($debug > 0);
+	print "Account $oneuser: " if ($verbose > 0);
 	
 	# When was the home directory itself last modified?
 	$homeage = -M "/Users/$oneuser";
 	$homeage = int($homeage);
-	print "Home is $homeage days stale" if ($debug > 0);
+	print "Home is $homeage days stale" if ($verbose > 0);
 
 	# When was the desktop directory last modified?
 	if (-e "/Users/$oneuser/Desktop") {
 		$desktopage = -M "/Users/$oneuser/Desktop";
 		$desktopage = int($desktopage);
-		print ", Desktop is $desktopage days stale" if ($debug > 0);	
+		print ", Desktop is $desktopage days stale" if ($verbose > 0);	
 	}
 	
 	# When was the documents directory last modified?
 	if (-e "/Users/$oneuser/Documents") {
 		$docsage = -M "/Users/$oneuser/Documents";
 		$docsage = int($desktopage);
-		print ", Documents are $docsage days stale" if ($debug > 0);
+		print ", Documents are $docsage days stale" if ($verbose > 0);
 	}
 	
-	print ".\n" if ($debug > 0);
+	print ".\n" if ($verbose > 0);
 	
 	if ($homeage > $killafter && $desktopage > $killafter && $docsage > $killafter) {
 		

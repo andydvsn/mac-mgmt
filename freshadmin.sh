@@ -1,26 +1,66 @@
 #!/bin/bash
 
-# freshadmin.sh v1.00 (15th April 2014) by Andy Davison
-#  Replaces the admin user folder with a fresh one from somewhere.
-#  Expects a gzipped tarball called 'admin-10.<osver>.tgz', eg. admin-10.9.tgz.
+## freshadmin.sh v1.00 (2nd September 2014) by Andy Davison
+##  Replaces the admin user account with a shiny new one from a server.
 
-if [[ "$USER" != "root" ]]; then
-	echo "Super-user privileges required."
-	exit 0
+# Path to file on server. Files on the server should be named in 'admin_10.X.tgz' format,
+# where X is the OS X secondary version number, eg. 'admin_10.10.tgz' for Yosemite.
+SERVERPATH="172.16.10.1/system/users"
+
+if [ "$USER" != "root" ]; then
+	echo "You need to run this as a superuser."
+	exit 1
 fi
 
-OSVER=`sw_vers -productVersion | awk -F\. {'print $2'}`
+ADMINLOGGEDIN=`who | grep console | grep -c admin`
+if [ $ADMINLOGGEDIN -ne 0 ]; then
+	echo "Halting. The admin user is logged in on the console."
+	exit 1
+fi
 
-## Where is the fresh admin user area?
-PATH="http://governor.studios/users/admin-10.$OSVER.tgz"
-##
+OSXVER=`sw_vers -productVersion | awk -F\. {'print $2'}`
+FILENAME="admin_10.$OSXVER.tgz"
 
-echo "Fetching new admin user area..."
-cd /tmp && /usr/bin/curl -sO "$PATH"
-echo "Removing old admin user area..."
-/bin/rm -rf /Users/admin
-echo "Copying new admin user area..."
-/usr/bin/tar zxf /tmp/admin-10.$OSVER.tgz -C /Users
-/bin/rm /tmp/admin-10.$OSVER.tgz
-echo "Done."
-exit 0
+echo -n "Fetching fresh admin user area for OS X v10.$OSXVER..."
+FETCH=$(curl -sSf -o /var/root/$FILENAME $SERVERPATH/$FILENAME)
+
+if [ $? -eq 0 ]; then
+
+	echo -n " checksumming..."
+
+	SUM1=`curl -s $SERVERPATH/$FILENAME.md5 | awk -F\=\  {'print $2'}`
+	SUM2=`md5 /var/root/$FILENAME | awk -F\=\  {'print $2'}`
+
+	if [[ "$SUM1" == "$SUM2" ]]; then
+
+		echo " matched."
+		echo -n "Replacing current admin user..."
+		rm -rf /Users/admin
+		tar zxf /var/root/$FILENAME -C /Users/
+		rm /var/root/$FILENAME
+		echo " done."
+		exit 0
+
+	else
+
+		echo " failed."
+		echo
+		echo "Checksum mismatch."
+		rm /var/root/$FILENAME
+		exit 1
+
+	fi
+
+	exit 0
+
+else
+
+	echo
+	echo "A template for the admin user on OS X v10.$OSXVER was not found."
+	echo "I was looking for http://$SERVERPATH/$FILENAME"
+	echo
+	exit 1
+
+fi
+
+

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# replacelibrarywithguest.sh v1.00 (1st September 2014) by Andy Davison
+## replacelibrarywithguest.sh v1.00 (1st September 2014) by Andy Davison
+##  Replaces the current Default User Library with the one from the Guest account.
 
 if [ "$USER" != "root" ]; then
 	echo "Please run $0 as root."
