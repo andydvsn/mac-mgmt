@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## storefor.sh v1.01 (25th March 2014) by Andy Davison
+## storefor.sh v1.02 (14th November 2014) by Andy Davison
 ##  This creates a store folder for the given user, if certain criteria are met.
 ##  It should be triggered by a 'storefor_USERNAME' appearing in /tmp and is triggered by launchd.
 
@@ -59,6 +59,9 @@ do
 			# Set permissions.
 			/usr/sbin/chown -R "$STORENAME:admin" "$THISSTOREPATH"
 			/bin/chmod 770 -R "$THISSTOREPATH"
+
+			# Touch those files!
+			/usr/bin/find $THISSTOREPATH -exec touch {} \;
 
 		fi
 
