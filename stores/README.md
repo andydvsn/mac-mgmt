@@ -17,6 +17,12 @@ The storefor scripts are the server backend. The **storefor.php** script receive
 	
 As it needs to run regardless of a console user being present. It redirects stdout to a log file, so the script just needs to echo out. The script should probably clear the logfile occasionally, but it doesn't right now.
 
+storemaintenance
+----------------
+
+The **storemaintenance.sh** script is a simple deletion pass. It checks in every Store until it finds any file modified in within a given time window. A single 'recently' modified file will mark that Store as active. If it doesn't find a modified file, the Store is deleted and the amount of recovered space is logged. As with **storefor.sh** this is handled by launchd using the .plist file.
+
+It's pretty mercenary, as it checks for *modified* time, not *accessed* time. But the time before deletion is massive by default.
 
 Resources.app
 -------------
