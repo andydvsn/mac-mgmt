@@ -94,3 +94,8 @@ This little setup runs a process when there is no *console* user logged in. When
 
 When the system is clear, the process is started again.
 
+workspacetostore
+----------------
+
+This quick-and-dirty script looks for a directory in the destination location with the same name as a directory in the source. It then creates a new folder and copies the source to the destination. If it can't find a match, then the failed source is moved out of the way.
+
