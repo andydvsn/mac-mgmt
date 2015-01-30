@@ -1,11 +1,14 @@
 #!/bin/bash
 
-## workspacestostore.sh v1.00 (5th December 2014)
-##  Given a directory of user areas, this searches for the corresponding
-##  Store location and copies the contents there.
+## workspacestostore.sh v1.01 (27th January 2015)
+##  Given a directory of user areas, this searches for a corresponding Store
+##  directory and copies the user area to a new directory there.
 
 if [ $# -lt 3 ]; then
-	echo "Usage: $0 <source> <destination> <directory>"
+	echo "Usage: $0 <source> <dest> <destdirname>"
+	echo " source      : Source containing user areas, eg. /Volumes/Studio1Users/"
+	echo " dest        : Destination containing matching dirs, eg. /Volumes/Drobo/Stores/"
+	echo " destdirname : Directory name to put the copied area into within <dest>"
 	exit 1
 fi
 
@@ -19,7 +22,7 @@ for USERAREA in `ls -1 $1 | grep mf`; do
 		mv $1/$USERAREA $1/nostore
 	else
 		[ -d $1/stored ] || mkdir $1/stored
-		echo -n "Copying $1$USERAREA to $DESTINATION$3..."
+		echo -n "Copying $1$USERAREA to $DESTINATION/$3..."
 		[ -d $DESTINATION/$3 ] || mkdir $DESTINATION/$3
 		cp -R $1/$USERAREA $DESTINATION/$3/
 		echo " done."

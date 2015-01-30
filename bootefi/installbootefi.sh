@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# installbootefi.sh v1.03 (16th May 2014) by Andy Davison
+# installbootefi.sh v1.04 (30th January 2015) by Andy Davison
 #  Installs whatever boot.efi file you point it to into the right places.
 
 if [ "$USER" != "root" ]; then
@@ -19,6 +19,10 @@ BOOTEFI="$2"
 replace_bootefi() {
 
 	echo "Removing previous boot.efi files..."
+	chflags nouchg $TARGET/System/Library/CoreServices/boot.efi
+	chflags nouchg $TARGET/usr/standalone/i386/boot.efi
+	cp $TARGET/System/Library/CoreServices/boot.efi $TARGET/System/Library/CoreServices/boot.efi.prev
+	cp $TARGET/usr/standalone/i386/boot.efi $TARGET/usr/standalone/i386/boot.efi.prev
 	rm -vf $TARGET/System/Library/CoreServices/boot.efi
 	rm -vf $TARGET/usr/standalone/i386/boot.efi
 	echo
@@ -35,7 +39,8 @@ replace_bootefi() {
 	chown root:wheel $TARGET/usr/standalone/i386/boot.efi
 	xattr -c $TARGET/System/Library/CoreServices/boot.efi
 	xattr -c $TARGET/usr/standalone/i386/boot.efi
-
+	chflags uchg $TARGET/System/Library/CoreServices/boot.efi
+	chflags uchg $TARGET/usr/standalone/i386/boot.efi
 	echo "Complete."
 
 } 
@@ -50,7 +55,7 @@ if [[ $CHECKEFI -ne 2 ]]; then
 	exit 0
 fi
 
-if [[ "$3" == "watchdog" ]]; then
+if [ $# -eq 3 ]; then
 
 	echo "Exercising the watchdog..."
 
@@ -76,7 +81,11 @@ if [[ "$3" == "watchdog" ]]; then
 
 else
 
-	echo "This will replace your boot.efi files with the one you have specified."
+	if [[ "$TARGET" == "/" ]]; then
+		echo "You are about to replace the boot.efi files on your current boot volume!"
+	else
+		echo "You are about to replace the boot.efi files on $TARGET"
+	fi
 	echo "There is no undo. There is only do."
 	echo
 	echo -n "Are you sure? (y/n) "
