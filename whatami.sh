@@ -6,3 +6,4 @@
 IOREG=`ioreg -p IODeviceTree -r -n / -d 1`
 echo "$IOREG" | grep model | awk -F\"  {'print $4'}
 echo "$IOREG" | grep board-id | awk -F\"  {'print $4'}
+sysctl -n machdep.cpu.brand_string
