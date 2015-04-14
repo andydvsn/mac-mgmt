@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# installbootefi.sh v1.05 (8th February 2015) by Andy Davison
+# installbootefi.sh v1.06 (14th April 2015) by Andy Davison
 #  Installs whatever boot.efi file you point it to into the right places.
 
 if [ "$USER" != "root" ]; then
@@ -28,29 +28,17 @@ replace_bootefi() {
 	echo "Copying boot.efi..."
 	cp -v "$BOOTEFI" $TARGET/System/Library/CoreServices/boot.efi
 	cp -v "$BOOTEFI" $TARGET/usr/standalone/i386/boot.efi
-	cp -v "$BOOTEFI" $TARGET/var/db/boot.efi.32
-	echo
-
-	echo "Copying script..."
-	[ -d $TARGET/usr/local/bin ] || mkdir -p $TARGET/usr/local/bin
-	cp -v $0 $TARGET/usr/local/bin/
-	chown root:admin $TARGET/usr/local/bin/installbootefi.sh
-	chmod 770 $TARGET/usr/local/bin/installbootefi.sh
 	echo
 
 	echo "Setting permissions..."
 	chmod 644 $TARGET/System/Library/CoreServices/boot.efi
 	chmod 644 $TARGET/usr/standalone/i386/boot.efi
-	chmod 644 $TARGET/var/db/boot.efi.32
 	chown root:wheel $TARGET/System/Library/CoreServices/boot.efi
 	chown root:wheel $TARGET/usr/standalone/i386/boot.efi
-	chown root:wheel $TARGET/var/db/boot.efi.32
 	xattr -c $TARGET/System/Library/CoreServices/boot.efi
 	xattr -c $TARGET/usr/standalone/i386/boot.efi
-	xattr -c $TARGET/var/db/boot.efi.32
 	chflags uchg $TARGET/System/Library/CoreServices/boot.efi
 	chflags uchg $TARGET/usr/standalone/i386/boot.efi
-	chflags uchg $TARGET/var/db/boot.efi.32
 	echo "Complete."
 
 } 
