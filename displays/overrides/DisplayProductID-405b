@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DisplayProductID</key>
+	<integer>3</integer>
+	<key>DisplayVendorID</key>
+	<integer>16082</integer>
+	<key>IODisplayEDID</key>
+	<data>
+	AP///////wA+0gMAAAAAAAoYAQOAAAB44mCxqlVAtiMMUFQAAAABAQEBAQEBAQEBAQEB
+	AQEBckA4OkCADXAhChYAR34AAAAaAAAA/ABSaWZ0IERLMgogICAgAAAA/wBIMURFNDM0
+	NktIQzgzAAAA/QA4TR6WEQAKICAgICAgAWgCAwQDjjM4OkCADXAhChYAR34AAAAa3j04
+	OkCADXAhChYAR34AAAAa2TM4OkC0GDAhCsYAR34AAAAaAAAAAAAAAAAAAAAAAAAAAAAA
+	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	8A==
+	</data>
+	<key>IODisplayPrefsKey</key>
+	<string>IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/P0P2@1/IOPP/GFX0@0/ATY,Hydrilla@1/ATIFramebufferNI/display0/AppleDisplay-3ed2-3</string>
+</dict>
+</plist>
