@@ -1,15 +1,28 @@
 #!/usr/bin/perl -w
 
-## eraseoldusers.pl v1.03 (2nd September 2014) by Andy Davison.
+## eraseoldusers.pl v1.04 (28th August 2015) by Andy Davison.
 ##  Erases user directories that exceed the inactive timeout.
 
 use strict;
+use POSIX qw(strftime);
 
 ## Number of days before we can consider something stale.
 my $killafter = 353;
 my $verbose = 1;
 
-print "\nBeginning removal of user accounts that have been inactive for $killafter days or more.\n";
+my $date = strftime "%a %b %e %H:%M:%S %Y", localtime;
+my $clires;
+my $logfile = '/var/log/eraseoldusers.log';
+
+# Log housekeeping (erase log if >100KB). Logging is by launchd on stdout.
+$clires = `touch $logfile`;
+my $logsize = -s $logfile;
+if ($logsize > 102400) {
+	$clires = `echo > $logfile`;
+}
+
+print "\nStarted: $date\n";
+print "\nBeginning removal of user accounts that have been inactive for $killafter days or more.\n\n";
 
 my $dfpre = qx{df -g /Users/};
 my @preaudiodrive = (split ' ', $dfpre);

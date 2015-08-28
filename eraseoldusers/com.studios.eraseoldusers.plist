@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.studios.eraseoldusers</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/local/bin/eraseoldusers.pl</string>
+	</array>
+	<key>StandardOutPath</key>
+	<string>/var/log/eraseoldusers.log</string>
+	<key>StartInterval</key>
+	<integer>181800</integer>
+</dict>
+</plist>

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## distributemac.sh v1.03 (2nd September 2014) by Andy Davison
+## distributemac.sh v1.04 (28th August 2015) by Andy Davison
 ##  Prepares OS X to be imaged.
 
 if [ "$USER" != "root" ]; then
@@ -9,7 +9,7 @@ if [ "$USER" != "root" ]; then
 fi
 
 echo
-echo "distributemac.sh v1.03 (2nd September 2014)"
+echo "distributemac.sh v1.04 (24th August 2015)"
 echo "==========================================="
 echo
 echo "Before you run this, destroy the three com.apple.kerberos.kdc files"
@@ -58,6 +58,7 @@ echo > /var/log/cups/page_log 2>/dev/null
 echo > /var/log/daily.out 2>/dev/null
 rm -rf /var/log/displaypolicyd* 2>/dev/null
 rm -rf /var/log/DiagnosticMessages/* 2>/dev/null
+rm -rf /var/log/eraseoldusers.log 2>/dev/null
 echo > /var/log/fsck_hfs.log 2>/dev/null
 rm /var/log/hdiejectd.log 2>/dev/null
 echo > /var/log/install.log 2>/dev/null
@@ -74,6 +75,7 @@ echo > /var/log/wifi.log 2>/dev/null
 echo " done."
 echo
 
+update_dyld_shared_cache -root /
 diskutil repairpermissions /
 
 echo
