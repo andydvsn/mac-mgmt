@@ -11,6 +11,6 @@
 	<key>StandardOutPath</key>
 	<string>/var/log/eraseoldusers.log</string>
 	<key>StartInterval</key>
-	<integer>181800</integer>
+	<integer>3600</integer>
 </dict>
 </plist>

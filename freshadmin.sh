@@ -1,7 +1,8 @@
 #!/bin/bash
 
-## freshadmin.sh v1.00 (2nd September 2014) by Andy Davison
+## freshadmin.sh v1.01 (2nd September 2015) by Andy Davison
 ##  Replaces the admin user account with a shiny new one from a server.
+##  Also checks that you have Shared and Technical directories with the right permissions.
 
 # Path to file on server. Files on the server should be named in 'admin_10.X.tgz' format,
 # where X is the OS X secondary version number, eg. 'admin_10.10.tgz' for Yosemite.
@@ -16,6 +17,23 @@ ADMINLOGGEDIN=`who | grep console | grep -c admin`
 if [ $ADMINLOGGEDIN -ne 0 ]; then
 	echo "Halting. The admin user is logged in on the console."
 	exit 1
+fi
+
+if [ ! -d /Users/Shared ]; then
+	echo -n "No Shared directory. Recreating..."
+	mkdir /Users/Shared
+	chown 0:0 /Users/Shared
+	chmod 777 /Users/Shared
+	chmod +t /Users/Shared
+	echo " done."
+fi
+
+if [ ! -d /Users/Technical ]; then
+	echo -n "No Technical directory. Recreating..."
+	mkdir /Users/Technical
+	chown 501:80 /Users/Technical
+	chmod 700 /Users/Technical
+	echo " done."
 fi
 
 OSXVER=`sw_vers -productVersion | awk -F\. {'print $2'}`
