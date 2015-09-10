@@ -17,6 +17,8 @@ The storefor scripts are the server backend. The **storefor.php** script receive
 	
 As it needs to run regardless of a console user being present. It redirects stdout to a log file, so the script just needs to echo out. The script should probably clear the logfile occasionally, but it doesn't right now.
 
+The storefor.sh script uses a .store_template folder to generate the Store. Create this hidden folder in the location of your Stores and place in it anything that you would like the users to receive by default.
+
 storemaintenance
 ----------------
 
