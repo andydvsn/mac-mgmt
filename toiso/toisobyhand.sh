@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# toisobyhand.sh v1.00 (15th April 2014)
-#  Converts every directory in a location to .iso files.
+# toisobyhand.sh v1.01 (20th February 2016)
+#  Converts directories to .iso files.
 
 if [ $# -lt 1 ]; then
 	echo "Usage $0: <source> [destination]"
@@ -33,26 +33,33 @@ if [[ "$1" == "-r" ]]; then
 			TODEST=""
 		fi
 
-	done
+		echo "Bundling '$DISCTITLE'$TODEST..."
+		echo /usr/bin/hdiutil makehybrid -udf -udf-volume-name "$DISCTITLE" -o "$DEST/$DISCTITLE.iso" "$DISCPATH/"
 
+	done
 else
 
 	DEST=`echo ${2%/}`
 	DISCPATH="$1"
+	DISCPATHONEUP=`echo ${DISCPATH%/*}`
 	SOURCE=`echo ${1%/}`
 	DISCTITLE=`echo "$SOURCE" | awk -F/ '{print $NF}'`
 
 	if [[ "$DEST" != "" ]]; then
 		TODEST=" into $DEST"
 	else
-		DEST="$SOURCE"
+		DEST="$DISCPATHONEUP"
+		if [[ "$DEST" =~ "$DISCTITLE" ]]; then
+			echo "Remove that trailing forward slash from the path and we're good to go."
+			exit 0
+		fi
 		TODEST=""
 	fi
 
-fi
+	echo "Bundling '$DISCTITLE'$TODEST..."
+	echo /usr/bin/hdiutil makehybrid -udf -udf-volume-name "$DISCTITLE" -o "$DEST/$DISCTITLE.iso" "$DISCPATH/"
 
-echo "Bundling '$DISCTITLE'$TODEST..."
-/usr/bin/hdiutil makehybrid -udf -udf-volume-name "$DISCTITLE" -o "$DEST/$DISCTITLE.iso" "$DISCPATH/"
+fi
 
 echo "Complete."
 exit 0
