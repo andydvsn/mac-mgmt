@@ -34,7 +34,7 @@ if [[ "$1" == "-r" ]]; then
 		fi
 
 		echo "Bundling '$DISCTITLE'$TODEST..."
-		echo /usr/bin/hdiutil makehybrid -udf -udf-volume-name "$DISCTITLE" -o "$DEST/$DISCTITLE.iso" "$DISCPATH/"
+		/usr/bin/hdiutil makehybrid -udf -udf-volume-name "$DISCTITLE" -o "$DEST/$DISCTITLE.iso" "$DISCPATH/"
 
 	done
 else
@@ -57,7 +57,7 @@ else
 	fi
 
 	echo "Bundling '$DISCTITLE'$TODEST..."
-	echo /usr/bin/hdiutil makehybrid -udf -udf-volume-name "$DISCTITLE" -o "$DEST/$DISCTITLE.iso" "$DISCPATH/"
+	/usr/bin/hdiutil makehybrid -udf -udf-volume-name "$DISCTITLE" -o "$DEST/$DISCTITLE.iso" "$DISCPATH/"
 
 fi
 
