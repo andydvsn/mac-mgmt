@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## iplayertoplex.sh v1.01 (24th January 2020) by Andrew Davison
+## iplayertoplex.sh v1.02 (24th September 2020) by Andrew Davison
 ##  Take downloaded content from get_iplayer and fumble it into Plex.
 
 debug=0
@@ -24,7 +24,7 @@ seriesnum="${7}"
 episodenum="${8}"
 destpath="${9}"
 films="${10}"
-podcasts="${11}"
+radio="${11}"
 tv="${12}"
 
 [[ "$episodeshort" == "" ]] && [[ "$nameshort" != "" ]] && type="film"
@@ -51,7 +51,7 @@ echo "seriesnum          : $seriesnum"
 echo "episodenum         : $episodenum"
 echo "destpath           : $destpath"
 echo "films              : $films"
-echo "podcasts           : $podcasts"
+echo "radio              : $radio"
 echo "tv                 : $tv"
 echo "fileext            : $fileext"
 
@@ -113,9 +113,12 @@ fi
 
 if [[ "$type" == "radio" ]]; then
 
-	# One for tomorrow.
-	echo "Oh, hell. Radio."
-	exit 1
+	destination_dir="$destpath/$radio/$safenameshort"
+	destination_filename="$safenameshort - $firstbcastdate - $safeepisodeshort.$fileext"
+	destination_path="$destination_dir/$destination_filename"
+
+	# Strip the album artist because it's always BBC Radio, which overrides the actual station in Plex default scanning.
+	$atomicparsley "$filename" --albumArtist "" --overWrite > /dev/null
 
 fi
 
