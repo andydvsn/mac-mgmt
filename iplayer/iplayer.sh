@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## iplayer.sh v1.00 (21st January 2020) by Andrew Davison
+## iplayer.sh v1.01 (4th October 2020) by Andrew Davison
 ##  A cozy layer in front of get_iplayer.
 
 get_iplayer="/usr/local/bin/get_iplayer"
@@ -27,13 +27,6 @@ if [[ "$1" == "add" ]]; then
 	fi
 
 elif [[ "$1" == "pvr" ]]; then
-
-	if [ -f "/Users/$USER/.get_iplayer/pvr_lock" ]; then
-
-		echo "$(date  +'%Y-%m-%d %H:%M:%S') : WARN : Scan already underway."
-		exit 0
-
-	fi
 
 	echo
 	echo "$(date  +'%Y-%m-%d %H:%M:%S') : INFO : Scan starting!"
