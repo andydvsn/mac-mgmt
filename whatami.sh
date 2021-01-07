@@ -24,14 +24,14 @@ if [[ "$(echo "$ioreg" | grep model | awk -F\"  {'print $4'})"" =~ "MacPro"" ]];
 	bay2="Empty"
 	bay3="Empty"
 	bay4="Empty"
-	for d in "$(diskutil list | grep "/dev" | awk -F\  '{print $1}')"; do
-		#bay=$(diskutil info "$d" | grep Bay | awk -F\"Bay\  {'print $2'} | cut -b1)
-		#if [[ "$bay" != "" ]]; then
-		#	declare bay$bay="$d"
-		#fi
-		$(diskutil info "$d")
-		#echo "$d"
-	done
+	# for d in "$(diskutil list | grep "/dev" | awk -F\  '{print $1}')"; do
+	# 	bay=$(diskutil info "$d" | grep "Device Location" | grep "Bay" | awk -F\"Bay\  {'print $2'} | cut -b1)
+	# 	#if [[ "$bay" != "" ]]; then
+	# 	#	declare bay$bay="$d"
+	# 	#fi
+	# 	#$(diskutil info "$d")
+	# 	#echo "$d"
+	# done
 fi
 
 
