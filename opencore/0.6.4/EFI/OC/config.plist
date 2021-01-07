@@ -377,6 +377,8 @@
 			<dict>
 				<key>boot-args</key>
 				<string>-lilubetaall -wegbeta -wegtree agdpmod=pikera shikigva=80 mbasd=1 -no_compat_check no32exec=0</string>
+				<key>csr-active-config</key>
+				<data>dwgAAA==</data>
 				<key>run-efi-updater</key>
 				<string>No</string>
 			</dict>
