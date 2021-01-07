@@ -64,8 +64,8 @@ if [[ "$bay1" != "" ]]; then
 fi
 
 echo
-
-
+csrutil status
+echo
 kextstat | grep -v com.apple
 
 
