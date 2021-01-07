@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## whatami.sh v1.00 (9th October 2014)
+## whatami.sh v1.01 (7th January 2021)
 ##  Displays useful information about what a Mac actually is.
 
 # Data Grabbers
@@ -65,6 +65,8 @@ fi
 
 echo
 
+
+kextstat | grep -v com.apple
 
 
 
