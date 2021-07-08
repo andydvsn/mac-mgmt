@@ -3,6 +3,8 @@
 ## whatami.sh v1.01 (7th January 2021)
 ##  Displays useful information about what a Mac actually is.
 
+version="1.01"
+
 # Data Grabbers
 ioreg=$(ioreg -p IODeviceTree -r -n / -d 1)
 nvram=$(nvram -p)
@@ -13,6 +15,7 @@ if [[ "$bootloader" =~ "not found" ]]; then
 	bootloader="Apple"
 else
 	bootloader="OpenCore $(echo "$bootloader" | awk -F\  '{print $2}')"
+	efibootlocation=$(nvram 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:boot-path | sed 's/.*GPT,\([^,]*\),.*/\1/')
 fi
 
 # Hardware
@@ -39,35 +42,41 @@ fi
 # Output
 
 echo
-echo "                                                                  whatami v1.00"
+echo "                                                                  whatami v$version"
 echo "==============================================================================="
 echo
-echo "Bootloader:   "$bootloader""
+echo "Bootloader:   $bootloader"
+echo "EFI Location: $efibootlocation"
 echo
 echo "--- Hardware ------------------------------------------------------------------"
 echo
-echo "Model:        $(echo "$ioreg" | grep model | awk -F\"  {'print $4'})"
-echo "Board ID:     $(echo "$ioreg" | grep board-id | awk -F\"  {'print $4'})"
+echo "Model:         $(echo "$ioreg" | grep model | awk -F\"  {'print $4'})"
+echo "Board ID:      $(echo "$ioreg" | grep board-id | awk -F\"  {'print $4'})"
 echo
-echo "CPU:          $(sysctl -n machdep.cpu.brand_string)"
-echo "Virtualised:  $([[ $(sysctl -n machdep.cpu.features) =~ "VMM" ]] && echo "Virtual (VMM Present)" || echo "Physical (VMM Absent)")"
+echo "CPU:           $(sysctl -n machdep.cpu.brand_string)"
+echo "Virtualised:   $([[ $(sysctl -n machdep.cpu.features) =~ "VMM" ]] && echo "Virtual (VMM Present)" || echo "Physical (VMM Absent)")"
 echo
-echo "GPU:          $(echo "$gpudata" | grep "Chipset Model" | awk -F\:\  {'print $2'})"
-echo "VRAM:         $(echo "$gpudata" | grep "VRAM" | awk -F\:\  {'print $2'})"
-echo "Metal:        $(echo "$gpudata" | grep "Metal" | awk -F\:\  {'print $2'})"
+echo "GPU:           $(echo "$gpudata" | grep "Chipset Model" | awk -F\:\  {'print $2'})"
+echo "Metal:         $(echo "$gpudata" | grep "Metal" | awk -F\:\  {'print $2'})"
+echo "VBIOS:         $(echo "$gpudata" | grep "VBIOS" | awk -F\:\  {'print $2'})"
+echo "VRAM:          $(echo "$gpudata" | grep "VRAM" | awk -F\:\  {'print $2'})"
 echo
-if [[ "$bay1" != "" ]]; then
-	echo "Drive Bay 1:  $bay1"
-	echo "Drive Bay 2:  $bay2"
-	echo "Drive Bay 3:  $bay3"
-	echo "Drive Bay 4:  $bay4"
-fi
+#if [[ "$bay1" != "" ]]; then
+#	echo "Drive Bay 1:  $bay1"
+#	echo "Drive Bay 2:  $bay2"
+#	echo "Drive Bay 3:  $bay3"
+#	echo "Drive Bay 4:  $bay4"
+#fi
 
+echo "--- Security Settings ---------------------------------------------------------"
 echo
 csrutil status
 echo
-kextstat | grep -v com.apple
 
+echo "--- Non-Apple Kexts -----------------------------------------------------------"
+echo
+kextstat | grep -v com.apple
+echo
 
 
 
