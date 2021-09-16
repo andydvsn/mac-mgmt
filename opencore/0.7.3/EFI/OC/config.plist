@@ -192,6 +192,24 @@
 				<key>Arch</key>
 				<string>x86_64</string>
 				<key>BundlePath</key>
+				<string>latebloom.kext</string>
+				<key>Comment</key>
+				<string>PCI Delay</string>
+				<key>Enabled</key>
+				<true/>
+				<key>ExecutablePath</key>
+				<string>Contents/MacOS/latebloom</string>
+				<key>MaxKernel</key>
+				<string></string>
+				<key>MinKernel</key>
+				<string>20.4.0</string>
+				<key>PlistPath</key>
+				<string>Contents/Info.plist</string>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>x86_64</string>
+				<key>BundlePath</key>
 				<string>Lilu.kext</string>
 				<key>Comment</key>
 				<string>Patch Engine</string>
@@ -482,13 +500,13 @@
 				</data>
 				<key>UIScale</key>
 				<data>
-				AQ==
+				Ag==
 				</data>
 			</dict>
 			<key>7C436110-AB2A-4BBB-A880-FE41995C9F82</key>
 			<dict>
 				<key>boot-args</key>
-				<string>-lilubetaall -wegbeta -wegtree agdpmod=pikera shikigva=80 mbasd=1 -no_compat_check no32exec=0</string>
+				<string>-v -lilubetaall -wegbeta -wegtree agdpmod=pikera shikigva=80 mbasd=1 -no_compat_check lbloom=60,20,1 no32exec=0</string>
 				<key>csr-active-config</key>
 				<data>
 				dwgAAA==
