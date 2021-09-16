@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-## whatami.sh v1.01 (7th January 2021)
+## whatami.sh v1.02 (16th September 2021)
 ##  Displays useful information about what a Mac actually is.
 
-version="1.01"
+version="1.02"
 
 # Data Grabbers
 ioreg=$(ioreg -p IODeviceTree -r -n / -d 1)
@@ -19,7 +19,6 @@ else
 fi
 
 # Hardware
-
 gpudata=$(system_profiler SPDisplaysDataType 2>/dev/null)
 
 if [[ "$(echo "$ioreg" | grep model | awk -F\"  {'print $4'})"" =~ "MacPro"" ]]; then
@@ -37,6 +36,8 @@ if [[ "$(echo "$ioreg" | grep model | awk -F\"  {'print $4'})"" =~ "MacPro"" ]];
 	# done
 fi
 
+# Software
+syssoft=$(system_profiler SPSoftwareDataType 2>/dev/null)
 
 
 # Output
@@ -48,6 +49,7 @@ echo
 echo "Bootloader:   $bootloader"
 echo "EFI Location: $efibootlocation"
 echo
+
 echo "--- Hardware ------------------------------------------------------------------"
 echo
 echo "Model:         $(echo "$ioreg" | grep model | awk -F\"  {'print $4'})"
@@ -68,12 +70,19 @@ echo
 #	echo "Drive Bay 4:  $bay4"
 #fi
 
-echo "--- Security Settings ---------------------------------------------------------"
+echo "--- Software ------------------------------------------------------------------"
 echo
-csrutil status
+echo "Kernel:        $(echo "$syssoft" | grep "Kernel Version" | awk -F\:\  {'print $2'})"
+echo "System:        $(echo "$syssoft" | grep "System Version" | awk -F\:\  {'print $2'})"
 echo
 
-echo "--- Non-Apple Kexts -----------------------------------------------------------"
+echo "--- Security Settings ---------------------------------------------------------"
+echo
+echo "SIP:           $(echo "$syssoft" | grep "System Integrity Protection" | awk -F\:\  {'print $2'})"
+echo "SVM:           $(echo "$syssoft" | grep "Secure Virtual Memory" | awk -F\:\  {'print $2'})"
+echo
+
+echo "--- Non-Apple Kernel Extensions -----------------------------------------------"
 echo
 kextstat | grep -v com.apple
 echo
