@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-## whatami.sh v1.02 (16th September 2021)
+## whatami.sh v1.03 (16th September 2021)
 ##  Displays useful information about what a Mac actually is.
 
-version="1.02"
+version="1.03"
 
 # Data Grabbers
 ioreg=$(ioreg -p IODeviceTree -r -n / -d 1)
@@ -84,7 +84,7 @@ echo
 
 echo "--- Non-Apple Kernel Extensions -----------------------------------------------"
 echo
-kextstat | grep -v com.apple
+kextstat | grep -v com.apple | grep -v "(Version)" | awk -F\  {'print $6 " " $7'}
 echo
 
 
