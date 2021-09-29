@@ -19,19 +19,13 @@ else
 fi
 
 # EFI Mount and Dismount
-
 if [[ "$1" == "mount" ]]; then
-
 	sudo diskutil mount $efibootlocation
 	exit 0
-
 elif [[ "$1" == "unmount" ]]; then
-
 	sudo diskutil unmount $efibootlocation
 	exit 0
-
 fi
-
 
 # Hardware
 gpudata=$(system_profiler SPDisplaysDataType 2>/dev/null)
