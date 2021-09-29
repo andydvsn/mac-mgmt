@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## whatami.sh v1.03 (16th September 2021)
+## whatami.sh v1.04 (29th September 2021)
 ##  Displays useful information about what a Mac actually is.
 
 version="1.03"
@@ -17,6 +17,21 @@ else
 	bootloader="OpenCore $(echo "$bootloader" | awk -F\  '{print $2}')"
 	efibootlocation=$(nvram 4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102:boot-path | sed 's/.*GPT,\([^,]*\),.*/\1/')
 fi
+
+# EFI Mount and Dismount
+
+if [[ "$1" == "mount" ]]; then
+
+	sudo diskutil mount $efibootlocation
+	exit 0
+
+elif [[ "$1" == "unmount" ]]; then
+
+	sudo diskutil unmount $efibootlocation
+	exit 0
+
+fi
+
 
 # Hardware
 gpudata=$(system_profiler SPDisplaysDataType 2>/dev/null)
@@ -87,8 +102,4 @@ echo
 kextstat | grep -v com.apple | grep -v "(Version)" | awk -F\  {'print $6 " " $7'}
 echo
 
-
-
-
-
-
+exit 0
