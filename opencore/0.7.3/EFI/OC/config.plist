@@ -196,7 +196,7 @@
 				<key>Comment</key>
 				<string>PCI Delay</string>
 				<key>Enabled</key>
-				<true/>
+				<false/>
 				<key>ExecutablePath</key>
 				<string>Contents/MacOS/latebloom</string>
 				<key>MaxKernel</key>
@@ -285,7 +285,7 @@
 		<dict>
 			<key>Cpuid1Data</key>
 			<data>
-			AAAAAAAAAAAAAAAAAAAAAA==
+			AAAAAAAAAAAAAACAAAAAAA==
 			</data>
 			<key>Cpuid1Mask</key>
 			<data>
@@ -331,6 +331,78 @@
 				<key>Replace</key>
 				<data>
 				SW50ZXJuYWw=
+				</data>
+				<key>ReplaceMask</key>
+				<data>
+				</data>
+				<key>Skip</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>x86_64</string>
+				<key>Base</key>
+				<string>_early_random</string>
+				<key>Comment</key>
+				<string>SurPlus v1 - PART 1 of 2 - Patch read_erandom (inlined in _early_random)</string>
+				<key>Count</key>
+				<integer>1</integer>
+				<key>Enabled</key>
+				<true/>
+				<key>Find</key>
+				<data>
+				AHQjSIs=
+				</data>
+				<key>Identifier</key>
+				<string>kernel</string>
+				<key>Limit</key>
+				<integer>800</integer>
+				<key>Mask</key>
+				<data>
+				</data>
+				<key>MaxKernel</key>
+				<string>21.1.0</string>
+				<key>MinKernel</key>
+				<string>20.4.0</string>
+				<key>Replace</key>
+				<data>
+				AOsjSIs=
+				</data>
+				<key>ReplaceMask</key>
+				<data>
+				</data>
+				<key>Skip</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>Arch</key>
+				<string>x86_64</string>
+				<key>Base</key>
+				<string>_register_and_init_prng</string>
+				<key>Comment</key>
+				<string>SurPlus v1 - PART 2 of 2 - Patch register_and_init_prng</string>
+				<key>Count</key>
+				<integer>1</integer>
+				<key>Enabled</key>
+				<true/>
+				<key>Find</key>
+				<data>
+				ukgBAAAx9g==
+				</data>
+				<key>Identifier</key>
+				<string>kernel</string>
+				<key>Limit</key>
+				<integer>256</integer>
+				<key>Mask</key>
+				<data>
+				</data>
+				<key>MaxKernel</key>
+				<string>21.1.0</string>
+				<key>MinKernel</key>
+				<string>20.4.0</string>
+				<key>Replace</key>
+				<data>
+				ukgBAADrBQ==
 				</data>
 				<key>ReplaceMask</key>
 				<data>
@@ -449,7 +521,22 @@
 			<integer>0</integer>
 		</dict>
 		<key>Entries</key>
-		<array/>
+		<array>
+			<dict>
+				<key>Arguments</key>
+				<string>ro root=PARTUUID=d41bec84-343c-45f9-9c1d-3dce56d19e18 initrd=\boot\initrd.img splash=silent quiet</string>
+				<key>Auxiliary</key>
+				<false/>
+				<key>Comment</key>
+				<string>Linux EFI Stub Loader</string>
+				<key>Enabled</key>
+				<true/>
+				<key>Name</key>
+				<string>Ubuntu</string>
+				<key>Path</key>
+				<string>PciRoot(0x0)/Pci(0x7,0x0)/Pci(0x0,0x0)/Pci(0x11,0x0)/Pci(0x0,0x0)/Msg(34,010000000025385881B03291)/HD(2,GPT,D41BEC84-343C-45F9-9C1D-3DCE56D19E18,0x64028,0x77319260)/boot/vmlinuz</string>
+			</dict>
+		</array>
 		<key>Security</key>
 		<dict>
 			<key>AllowNvramReset</key>
@@ -486,7 +573,26 @@
 			<string>Optional</string>
 		</dict>
 		<key>Tools</key>
-		<array/>
+		<array>
+			<dict>
+				<key>Arguments</key>
+				<string></string>
+				<key>Auxiliary</key>
+				<true/>
+				<key>Comment</key>
+				<string>OpenCore EFI Shell</string>
+				<key>Enabled</key>
+				<true/>
+				<key>Name</key>
+				<string>Open Shell</string>
+				<key>Path</key>
+				<string>OpenShell.efi</string>
+				<key>RealPath</key>
+				<false/>
+				<key>TextMode</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>NVRAM</key>
 	<dict>
@@ -752,6 +858,14 @@
 		<true/>
 		<key>Drivers</key>
 		<array>
+			<dict>
+				<key>Arguments</key>
+				<string></string>
+				<key>Enabled</key>
+				<true/>
+				<key>Path</key>
+				<string>ext4_x64.efi</string>
+			</dict>
 			<dict>
 				<key>Arguments</key>
 				<string></string>
