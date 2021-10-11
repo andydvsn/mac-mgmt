@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-## whatami.sh v1.04 (29th September 2021)
+## whatami.sh v1.05 (11th October 2021)
 ##  Displays useful information about what a Mac actually is.
 
-version="1.04"
+version="1.05"
 
 # Data Grabbers
 ioreg=$(ioreg -p IODeviceTree -r -n / -d 1)
@@ -24,6 +24,11 @@ if [[ "$1" == "mount" ]]; then
 	exit 0
 elif [[ "$1" == "unmount" ]]; then
 	sudo diskutil unmount $efibootlocation
+	exit 0
+fi
+
+if [[ "$1" == "test" ]]; then
+	/usr/bin/plutil -convert xml1 /Volumes/EFI/EFI/OC/config.plist && /usr/bin/plutil /Volumes/EFI/EFI/OC/config.plist
 	exit 0
 fi
 
