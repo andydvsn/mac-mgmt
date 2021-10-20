@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-## whatami.sh v1.05 (11th October 2021)
+## whatami.sh v1.06 (20th October 2021)
 ##  Displays useful information about what a Mac actually is.
 
-version="1.05"
+version="1.06"
 
 # Data Grabbers
 ioreg=$(ioreg -p IODeviceTree -r -n / -d 1)
@@ -60,14 +60,16 @@ echo
 echo "                                                                  whatami v$version"
 echo "==============================================================================="
 echo
-echo "Bootloader:   $bootloader"
-echo "EFI Location: $efibootlocation"
+echo "Bootloader:    $bootloader"
+echo "EFI Location:  $efibootlocation"
 echo
 
 echo "--- Hardware ------------------------------------------------------------------"
 echo
-echo "Model:         $(echo "$ioreg" | grep model | awk -F\"  {'print $4'})"
-echo "Board ID:      $(echo "$ioreg" | grep board-id | awk -F\"  {'print $4'})"
+echo "Model:         $(echo "$ioreg" | grep \"model\" | awk -F\"  {'print $4'})"
+echo "Board ID:      $(echo "$ioreg" | grep \"board-id\" | awk -F\"  {'print $4'})"
+echo "System UUID:   $(echo "$ioreg" | grep \"IOPlatformUUID\" | awk -F\"  {'print $4'})"
+echo "Bridge:        $(echo "$ioreg" | grep \"bridge-model\" | awk -F\"  {'print $4'} | grep . || echo "None")"
 echo
 echo "CPU:           $(sysctl -n machdep.cpu.brand_string)"
 echo "Virtualised:   $([[ $(sysctl -n machdep.cpu.features) =~ "VMM" ]] && echo "Virtual (VMM Present)" || echo "Physical (VMM Absent)")"
@@ -98,7 +100,7 @@ echo
 
 echo "--- Non-Apple Kernel Extensions -----------------------------------------------"
 echo
-kextstat | grep -v com.apple | grep -v "(Version)" | awk -F\  {'print $6 " " $7'}
+/usr/bin/kmutil showloaded 2>/dev/null | grep -v com.apple | grep -v "(Version)" | awk -F\  {'print $6 " " $7'}
 echo
 
 exit 0
