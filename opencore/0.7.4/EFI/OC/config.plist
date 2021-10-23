@@ -566,7 +566,7 @@
 			<key>ScanPolicy</key>
 			<integer>0</integer>
 			<key>SecureBootModel</key>
-			<string>Disabled</string>
+			<string>Default</string>
 			<key>Vault</key>
 			<string>Optional</string>
 		</dict>
@@ -735,7 +735,7 @@
 			<key>BIOSVendor</key>
 			<string></string>
 			<key>BIOSVersion</key>
-			<string>9144.0.7.4.0</string>
+			<string>9999.144.0.7.4</string>
 			<key>BoardAssetTag</key>
 			<string></string>
 			<key>BoardLocationInChassis</key>
@@ -793,7 +793,7 @@
 		<key>UpdateDataHub</key>
 		<false/>
 		<key>UpdateNVRAM</key>
-		<false/>
+		<true/>
 		<key>UpdateSMBIOS</key>
 		<true/>
 		<key>UpdateSMBIOSMode</key>
