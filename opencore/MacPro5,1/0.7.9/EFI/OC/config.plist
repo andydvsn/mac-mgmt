@@ -9,7 +9,7 @@
 			<dict>
 				<key>Comment</key>
 				<string>Thunderbolt Support (Slot 4)</string>
-				<key>Enabled</key>
+				<key>Disabled</key>
 				<true/>
 				<key>Path</key>
 				<string>SSDT-TBOLT3-SLOT4.aml</string>
