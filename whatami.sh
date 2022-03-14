@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## whatami.sh v1.06 (20th October 2021)
+## whatami.sh v1.07 (7th February 2022)
 ##  Displays useful information about what a Mac actually is.
 
 version="1.06"
@@ -21,6 +21,7 @@ fi
 # EFI Mount and Dismount
 if [[ "$1" == "mount" ]]; then
 	sudo diskutil mount $efibootlocation
+	/usr/bin/open /Volumes/EFI 
 	exit 0
 elif [[ "$1" == "unmount" ]]; then
 	sudo diskutil unmount $efibootlocation
