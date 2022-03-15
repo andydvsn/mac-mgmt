@@ -2,29 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>#OSBundleLibraries</key>
-	<dict>
-		<key>com.apple.AppleGraphicsDeviceControl</key>
-		<string>1.0</string>
-		<key>com.apple.driver.IOPlatformPluginFamily</key>
-		<string>1.0.0</string>
-		<key>com.apple.iokit.IOGraphicsFamily</key>
-		<string>1.1</string>
-		<key>com.apple.iokit.IONDRVSupport</key>
-		<string>1.1</string>
-		<key>com.apple.iokit.IOPCIFamily</key>
-		<string>1.0</string>
-		<key>com.apple.kpi.bsd</key>
-		<string>8.3.1</string>
-		<key>com.apple.kpi.iokit</key>
-		<string>8.3.1</string>
-		<key>com.apple.kpi.libkern</key>
-		<string>8.3.1</string>
-		<key>com.apple.kpi.mach</key>
-		<string>8.3.1</string>
-		<key>com.apple.kpi.private</key>
-		<string>14.0.0</string>
-	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleGetInfoString</key>
@@ -66,8 +43,6 @@
 			<string>ACPI</string>
 		</dict>
 	</dict>
-	<key>LSMinimumSystemVersion</key>
-	<string>12.3</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © Dortania</string>
 </dict>
