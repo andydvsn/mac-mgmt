@@ -147,6 +147,8 @@
 				AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 				AAAAAAAAAAAAAAAAAAA=
 				</data>
+				<key>rebuild-device-tree</key>
+				<integer>0</integer>
 				<key>unfairgva</key>
 				<integer>1</integer>
 			</dict>
@@ -799,11 +801,7 @@
 			<key>7C436110-AB2A-4BBB-A880-FE41995C9F82</key>
 			<dict>
 				<key>boot-args</key>
-				<string>-v -wegtree no32exec=0 nvram_paniclog=0</string>
-				<key>csr-active-config</key>
-				<data>
-				dwgAAA==
-				</data>
+				<string>-v nvram_paniclog=0</string>
 				<key>run-efi-updater</key>
 				<string>No</string>
 			</dict>
@@ -818,7 +816,6 @@
 			<key>7C436110-AB2A-4BBB-A880-FE41995C9F82</key>
 			<array>
 				<string>boot-args</string>
-				<string>csr-active-config</string>
 			</array>
 		</dict>
 		<key>LegacyOverwrite</key>
@@ -1098,6 +1095,16 @@
 				<false/>
 				<key>Path</key>
 				<string>OpenRuntime.efi</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<string></string>
+				<key>Comment</key>
+				<string>Plugin for toggling SIP</string>
+				<key>Enabled</key>
+				<true/>
+				<key>Path</key>
+				<string>ToggleSipEntry.efi</string>
 			</dict>
 		</array>
 		<key>Input</key>
