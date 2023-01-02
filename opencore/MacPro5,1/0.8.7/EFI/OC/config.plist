@@ -10,7 +10,7 @@
 				<key>Comment</key>
 				<string>Thunderbolt Support (Slot 4)</string>
 				<key>Enabled</key>
-				<true/>
+				<false/>
 				<key>Path</key>
 				<string>SSDT-TbtGCTR.aml</string>
 			</dict>
