@@ -3,9 +3,6 @@ macOS Management
 
 A collection of little scripts used to do handy things on macOS.
 
-Not everything will be immediately useful to others, but should contain enough to get you set up in your own custom workflow.
-
--
 
 ### ddupd
 

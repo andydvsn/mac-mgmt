@@ -3,7 +3,7 @@
 ## whatami.sh v1.07 (7th February 2022)
 ##  Displays useful information about what a Mac actually is.
 
-version="1.06"
+version="1.07"
 
 # Data Grabbers
 ioreg=$(ioreg -p IODeviceTree -r -n / -d 1)
