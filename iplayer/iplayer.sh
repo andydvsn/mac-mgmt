@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-## iplayer.sh v1.01 (4th October 2020) by Andrew Davison
+## iplayer.sh v1.02 (21st September 2021) by Andrew Davison
 ##  A cozy layer in front of get_iplayer.
 
-get_iplayer="/usr/local/bin/get_iplayer"
+get_iplayer="/opt/homebrew/bin/get_iplayer"
 
 if [[ "$1" == "add" ]]; then
 	# Really quick PVR adder.
@@ -23,6 +23,47 @@ if [[ "$1" == "add" ]]; then
 		echo -e "type $type\nsearch0 $3" > /Users/$USER/.get_iplayer/pvr/$2-$spacesbegone
 		echo "$(date  +'%Y-%m-%d %H:%M:%S') : INFO : Added '$3' to the PVR."
 		exit 0
+
+	fi
+
+elif [[ "$1" == "pids" ]]; then
+
+	if [ $# -ne 2 ]; then
+
+		echo "Usage: $0 [pids] <url>"
+		exit 1
+
+	else
+
+		related=$(curl --silent "$2" | grep "tvip-script-app-store")
+
+		IFS=','
+		read -a strarr <<< "$related"
+
+		title=""
+		subtitle=""
+		pids=""
+
+		for val in "${strarr[@]}";
+		do
+
+			if [[ "$val" =~ '"title":"' ]]; then
+
+				title=$(echo "$val" | awk -F\title\":\" {'print $2'} | awk -F\" {'print $1'})
+
+			fi
+
+			if [[ "$val" =~ '{"episode":{"id":' ]]; then
+
+				onepid=$(echo "$val" | awk -F\id\":\" {'print $2'} | awk -F\" {'print $1'})
+				pids="$pids,$onepid"
+
+			fi
+
+		done
+
+		echo $title
+		echo "${pids:1}"
 
 	fi
 
