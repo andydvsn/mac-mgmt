@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-## iplayertoplex.sh v1.02 (24th September 2020) by Andrew Davison
+## iplayertoplex.sh v1.06 (23rd January 2025) by Andrew Davison
 ##  Take downloaded content from get_iplayer and fumble it into Plex.
 
 debug=0
 
 ###
-atomicparsley="/usr/local/bin/AtomicParsley"
+atomicparsley="/opt/homebrew/bin/AtomicParsley"
 bbcurl="https://www.bbc.co.uk/programmes"
-jq="/usr/local/bin/jq"
-mediainfo="/usr/local/bin/mediainfo"
+jq="/opt/homebrew/bin/jq"
+mediainfo="/opt/homebrew/bin/mediainfo"
 ###
 
 pathtothisscript="$(cd "$(dirname "$0")";pwd -P)"
@@ -31,8 +31,8 @@ tv="${12}"
 [[ "${#seriesnum}" -eq 1 ]] && seriesnum="0$seriesnum"
 [[ "${#episodenum}" -eq 1 ]] && episodenum="0$episodenum"
 
-safenameshort=$(echo $nameshort | sed -e 's/://g')
-safeepisodeshort=$(echo $episodeshort | sed -e 's/://g')
+safenameshort=$(echo $nameshort | sed -e 's/://g' | sed -e 's/\//-/g')
+safeepisodeshort=$(echo $episodeshort | sed -e 's/://g'| sed -e 's/\//-/g')
 fileext="${filename##*.}"
 metadata=$($mediainfo "$filename")
 
@@ -57,7 +57,7 @@ echo "fileext            : $fileext"
 
 if [[ "$type" == "film" ]] || [[ "$type" == "tv" ]]; then
 
-	resolution=$(echo "$metadata" | grep Height | awk -F\:\  {'print $2'} | cut -d\  -f1)
+	resolution=$(echo "$metadata" | grep Height | awk -F\:\  {'print $2'} | tr -d '[:space:]' | cut -d p -f1)
 
 fi
 
@@ -124,11 +124,15 @@ fi
 
 if [[ "$type" == "tv" ]]; then
 
-	# Build the path and sXXeXX identifier into the file name. Leave all metadata intact, as it's likely better than what's available elsewhere.
+	# Build the path and sXXeXX identifier into the file name.
 	[[ "$seriesnum" == "" ]] && destination_dir="$destpath/$tv/$safenameshort/Specials" || destination_dir="$destpath/$tv/$safenameshort/Season $seriesnum"
 	[[ "$resolution" == "" ]] && optionalinformation="$safeepisodeshort" || optionalinformation="$safeepisodeshort ($resolution""p)"
 	[[ "$episodenum" == "" ]] && destination_filename="$safenameshort - $firstbcastdate - $optionalinformation.$fileext" || destination_filename="$safenameshort - s$seriesnum""e$episodenum - $optionalinformation.$fileext"
+	#destination_filename=$(echo "$destination_filename" |  sed 's/\//\\\//g')
 	destination_path="$destination_dir/$destination_filename"
+
+	# Add PID in the empty keyword field. Leave all other metadata intact, it's likely better than anything available elsewhere.
+	$atomicparsley "$filename" --keyw "$pid" --overWrite > /dev/null
 
 fi
 
@@ -138,16 +142,24 @@ echo "Destination Path : $destination_path"
 echo "==="
 echo
 
-if [[ "$debug" != "1" ]] && [[ "$filename" != "" ]] && [[ "$destination_dir" != "" ]] && [[ "$destination_filename" != "" ]] && [[ "$destination_path" != "" ]]; then
+if [[ "$filename" != "" ]] && [[ "$destination_dir" != "" ]] && [[ "$destination_filename" != "" ]] && [[ "$destination_path" != "" ]]; then
 
 	echo -n "Moving '$destination_filename'..."
 	mkdir -p "$destination_dir"
-	mv "$filename" "$destination_path" 2>/dev/null
-	echo " done."
+
+	if [[ "$debug" != "1" ]]; then
+		echo
+		echo
+		mv -v "$filename" "$destination_path"
+	else
+		echo " not really, we're in debug mode!"
+		echo
+		echo "mv \"$filename\" \"$destination_path\""
+	fi
 
 else
 
-	echo "Not moving anything. You may want to check whether '$filename' exists."
+	echo "Not all paths and filenames were present. You may want to check whether '$filename' exists."
 
 fi
 
